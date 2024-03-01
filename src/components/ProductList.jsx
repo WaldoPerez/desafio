@@ -9,15 +9,14 @@ export const ProductList = ({
   countProducts,
   setCountProducts,
 }) => {
-  // Definir las categorías disponibles
+
   const categories = ["Video", "Audio", "Electrónica", "Electrodoméstico", "Muebles"];
 
-  // Función para filtrar los productos por categoría
   const getProductsByCategory = (category) => {
     return home.filter((product) => product.category === category);
   };
 
-  // Función para añadir un producto al carrito
+
   const onAddProduct = (product) => {
     const existingProduct = allProducts.find((item) => item.id === product.id);
     if (existingProduct) {
@@ -28,10 +27,10 @@ export const ProductList = ({
     } else {
       setAllProducts([...allProducts, { ...product, quantity: 1 }]);
     }
-    updateTotal(); // Actualizar el total al añadir un producto
+    updateTotal(); 
   };
 
-  // Función para calcular el total
+
   const updateTotal = () => {
     let totalPrice = 0;
     allProducts.forEach((product) => {
