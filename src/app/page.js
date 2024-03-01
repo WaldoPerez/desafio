@@ -1,95 +1,126 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import React, { useState } from 'react';
+import { Modal } from 'bootstrap';
+import { FormGroup, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-export default function Home() {
+function App() {
+  const [movimientos, setMovimientos] = useState([]);
+  const [tipoMovimiento, setTipoMovimiento] = useState('gasto');
+  const [categoria, setCategoria] = useState('');
+  const [monto, setMonto] = useState('');
+  const [fecha, setFecha] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+
+  const handleRegistro = () => {
+    const nuevoMovimiento = {
+      id: Date.now(), 
+      tipo: tipoMovimiento,
+      categoria: categoria,
+      monto: monto,
+      fecha: fecha,
+      descripcion: descripcion
+    };
+    setMovimientos([...movimientos, nuevoMovimiento]);
+    limpiarCampos();
+  };
+
+  const limpiarCampos = () => {
+    setCategoria('');
+    setMonto('');
+    setFecha('');
+    setDescripcion('');
+  };
+
+  const eliminarMovimiento = (id) => {
+    const nuevosMovimientos = movimientos.filter((movimiento) => movimiento.id !== id);
+    setMovimientos(nuevosMovimientos);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <div className="form-container">
+     <div className='forma'>
+      <h1>Registro de Proyectos</h1>
+      <div className="input-container">
+        <label className="label">
+          Tipo de Proyectos:
+          <select value={tipoMovimiento} onChange={(e) => setTipoMovimiento(e.target.value)}>
+            <option value="No-Ambientales">No ambientales</option>
+            <option value="Ambientales">Ambientales</option>
+          </select>
+        </label>
+        <label className="label">
+          Categoria:
+          <select value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+            {tipoMovimiento === 'No-Ambientales' ? (
+              <optgroup label="No-Ambientales">
+                <option value="Alimentación">Alimentación</option>
+                <option value="Vivienda">Vivienda</option>
+                <option value="Desarrollo de software">Desarrollo de software</option>
+                <option value="Campaña Marketing">Campaña Marketing</option>
+              </optgroup>
+            ) : (
+              <optgroup label="Ambientales">
+                <option value="Alimentación">Alimentación</option>
+                <option value="Vivienda">Vivienda</option>
+                <option value="Desarrollo de software">Desarrollo de software</option>
+                <option value="Campaña Marketing">Campaña Marketing</option>
+              </optgroup>
+            )}
+          </select>
+        </label>
+        <label className="label">
+          Monto:
+          <input type="number" value={monto} onChange={(e) => setMonto(e.target.value)} />
+        </label>
+        <label className="label">
+          Fecha:
+          <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
+        </label>
+        <label className="label">
+          Descripción:
+          <input type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+        </label>
+        <button className="btn btn-primary boton" onClick={handleRegistro}>Registrar</button>
       </div>
+    </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+    <h2>Movimientos</h2>
+    <div className="proyectos-container">
+      <div className="proyectos-No-Ambientales">
+        <h3>No Ambientales</h3>
+        <ul>
+          {movimientos.map((movimiento) => {
+            if (movimiento.tipo === 'No-Ambientales') {
+              return (
+                <li key={movimiento.id}>
+                  {movimiento.categoria} - ${movimiento.monto} - {movimiento.fecha} - {movimiento.descripcion}
+                  <button className="btn btn-danger" onClick={() => eliminarMovimiento(movimiento.id)}>Eliminar</button>
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="proyectos-Ambientales">
+        <h3>Ambientales</h3>
+        <ul>
+          {movimientos.map((movimiento) => {
+            if (movimiento.tipo === 'Ambientales') {
+              return (
+                <li key={movimiento.id}>
+                  {movimiento.categoria} - ${movimiento.monto} - {movimiento.fecha} - {movimiento.descripcion}
+                  <button className="btn btn-danger" onClick={() => eliminarMovimiento(movimiento.id)}>Eliminar</button>
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
       </div>
-    </main>
+    </div>
+  </div>
   );
 }
+export default App;
+
