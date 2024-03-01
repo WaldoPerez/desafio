@@ -13,8 +13,8 @@ body {
   font-family: "Lato", sans-serif;
   color: #333;
   background-image: url('https://static.vecteezy.com/system/resources/previews/021/004/695/non_2x/video-game-background-free-vector.jpg');
-  background-size: cover; /* Para cubrir todo el fondo */
-  background-repeat: no-repeat; /* Para que la imagen no se repita */
+  background-size: cover; 
+  background-repeat: no-repeat; 
 }
 
 
@@ -217,17 +217,17 @@ header {
 .hidden {
   display: none;
 }
-/* Ajuste del tamaño del campo de cantidad */
+
 .info-cart-product input[type="number"] {
-  width: 40px; /* Ancho más pequeño */
-  height: 30px; /* Altura un poco más alta */
-  font-size: 14px; /* Tamaño de fuente más pequeño */
-  padding: 5px; /* Espaciado interno */
+  width: 40px; 
+  height: 30px; 
+  font-size: 14px; 
+  padding: 5px; 
 }
 
 .contador-productos {
   font-size: 12px;
-  color: white; /* Ajusta el color del texto del contador según tu diseño */
+  color: white;
   position: absolute;
   top: 50%;
   right: 50%;
