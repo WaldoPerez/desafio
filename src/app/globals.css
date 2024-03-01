@@ -235,7 +235,7 @@ header {
 }
 
 .thumbnail-producto-carrito {
-  width: 50px; /* Ancho deseado */
-  height: auto; /* Altura ajustada automáticamente */
+  width: 50px; 
+  height: auto; 
 }
 
