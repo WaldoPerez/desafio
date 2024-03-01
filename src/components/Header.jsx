@@ -84,9 +84,9 @@ export const Headers = ({
                       <span className='precio-producto-carrito'>${product.price}</span>
                     </div>
                     <img
-                      src={product.urlImage} // Utiliza la propiedad urlImage para la imagen
+                      src={product.urlImage} 
                       alt={product.title}
-                      className="thumbnail-producto-carrito" // Clase para ajustar el tamaño
+                      className="thumbnail-producto-carrito" 
                     />
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/1017/1017530.png"
